@@ -465,7 +465,6 @@ blockquote {
 
 [role="banner"] {
     // Includes global navigation, logo, and tagline at top of document
-    @include clearfix;
     background: $green-dark;
     overflow: hidden;
     margin: 0;
@@ -474,8 +473,11 @@ blockquote {
     z-index: 0;
 
     .container {
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
         @include respond-min(768px) {
             position: relative;
+            grid-template-columns: auto auto 1fr auto;
         }
     }
 
@@ -522,6 +524,10 @@ blockquote {
         }
     }
 
+    .mobile-toggle {
+        grid-column: 3
+    }
+
     .menu-button {
         @include font-size(20);
         background: $green-dark;
@@ -556,6 +562,7 @@ blockquote {
         transition: max-height 0.3s ease-out;
         max-height: 0; // hide mobile menu by default
         overflow: hidden;
+        grid-column: 1 / -1;
 
         &.active {
             max-height: 580px;
@@ -565,6 +572,7 @@ blockquote {
             width: auto;
             float: right;
             max-height: none; // always show menu on a desktop width
+            grid-column: 4 / -1;
         }
 
         ul {
@@ -573,6 +581,9 @@ blockquote {
 
             @include respond-min(768px) {
                 margin: 0;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
             }
         }
 
@@ -590,8 +601,6 @@ blockquote {
             @include respond-min(768px) {
                 margin: 0;
                 border: 0;
-                float: left;
-                text-align: left;
             }
 
             &.active a {
